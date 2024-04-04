@@ -60,7 +60,7 @@ if [ -s payload.txt ]; then
         echo "Status Code: $(echo "$response" | jq -r '.statusCode')"
 
         # log the response into a file in log folder with current date, status code and response
-        echo "$(date) - Status Code: $(echo "$response" | jq -r '.statusCode') - Response: '$response'" >> log/$(date +"%Y-%m-%d").log
+        echo "$(date) - Status Code: $(echo "$response" | jq -r '.statusCode') - Response: '$response'" >> log/"$(date +"%Y-%m-%d")".log
     done <<< "$payload"
 else
     echo "No data found"
