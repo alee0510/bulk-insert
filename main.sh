@@ -3,10 +3,21 @@
 
 # Read data from the file
 data="sample.csv"
+server="http://localhost:3000"
 
 # clean the file and log if it's exist
-if [ -f json.txt ]; then
-    rm json.txt
+if [ -f payload.txt ]; then
+    rm payload.txt
+fi
+
+# check if the log folder is exist
+if [ ! -d log ]; then
+    mkdir log
+fi
+
+# if log folder is exist, then clean the log files
+if [ -d log ]; then
+    rm log/*
 fi
 
 # Read the header line and split it into an array
@@ -27,18 +38,30 @@ tail -n +2 "$data" | while IFS=, read -r fields || [[ -n "$fields" ]]; do
     json="$json}"
 
     # Print the JSON data
-    echo "$json"
+    # echo "$json"
 
     # log the JSON data to a file
-    echo "$json" >> json.txt
+    echo "$json" >> payload.txt
 done
 
 # read the json file and print the data
-formatedData=$(cat json.txt)
+payload=$(cat payload.txt)
 
 # check if the file is exist and not empty
-if [ -s json.txt ]; then
-    echo "$formatedData"
+if [ -s payload.txt ]; then
+    # loop through the data and send it to the server
+    while IFS= read -r line; do
+        echo "Sending data to the server: $line"
+
+        # send the data to the server and log the response
+        response=$(curl -X POST -H "Content-Type: application/json" -d "$line" "$server")
+
+        # log response status code to the console
+        echo "Status Code: $(echo "$response" | jq -r '.statusCode')"
+
+        # log the response into a file in log folder with current date, status code and response
+        echo "$(date) - Status Code: $(echo "$response" | jq -r '.statusCode') - Response: '$response'" >> log/$(date +"%Y-%m-%d").log
+    done <<< "$payload"
 else
     echo "No data found"
 fi
