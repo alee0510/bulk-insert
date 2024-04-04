@@ -59,14 +59,15 @@ if [ -s payload.txt ]; then
     while IFS= read -r line; do
         echo "Sending data to the server: $line"
 
-        # send the data to the server and log the response
+        # send the data to the server and log the response and its http status code
         response=$(curl -X POST -H "Content-Type: application/json" -d "$line" "$server")
+        # echo "Response: $response"
 
         # log response status code to the console
-        echo "Status Code: $(echo "$response" | jq -r '.statusCode')"
+        # echo "Status Code: $(echo "$response" | jq -r '.statusCode')"
 
         # log the response into a file in log folder with current date, status code, & payload
-        echo "$(date) - Status Code: $(echo "$response" | jq -r '.statusCode') - payload: '$line'" >> log/"$(date +"%Y-%m-%d")".log
+        echo "$(date +'%d-%m-%Y-%H:%M:%S') - Status Code: $(echo "$response" | jq -r '.statusCode') - payload: '$line'" >> log/"$(date +"%Y%m%d-%H:%M:%S")".log
     done <<< "$payload"
 else
     echo "No data found"
