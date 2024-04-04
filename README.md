@@ -4,9 +4,10 @@ A bash script to automate bulk insert of data to your database via `POST` REST-A
 ## Requirement
 This script has the following requirements:
 
-- curl, this requirement is necessary for making HTTP requests. It is used to retrieve data from a remote server.
-- jq, this requirement is a lightweight and flexible command-line JSON processor. It is used to parse and manipulate JSON data.
-- csvkit, the `csvkit` library provides various utilities for working with CSV files in Python. It simplifies the process of reading, writing, and manipulating CSV data.
+- `curl`, this requirement is necessary for making HTTP requests. It is used to retrieve data from a remote server.
+- `jq`, this requirement is a lightweight and flexible command-line JSON processor. It is used to parse and manipulate JSON data.
+- `csvkit`, the `csvkit` library provides various utilities for working with CSV files in Python. It simplifies the process of reading, writing, and manipulating CSV data.
+- `awk`, a useful command for processing or analyzing text files, especially data that is structured into consistent lines and fields. It's often used in script files in combination with other shell commands.
 
 Make sure to have these requirements installed before running the script.
 
