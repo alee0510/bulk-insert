@@ -1,9 +1,15 @@
 #!/bin/bash
 # This script is the main entry point for the application.
 
-# Read data from the file
-data="sample.csv"
-server="http://localhost:3000"
+# read the specs file to initialize the data and server variables
+specs=$(cat specs.json)
+if [ -f specs.json ]; then
+    data=$(echo "$specs" | jq -r '.data')
+    server=$(echo "$specs" | jq -r '.server')
+else
+    echo "No specs file found"
+    exit 1
+fi
 
 # clean the file and log if it's exist
 if [ -f payload.txt ]; then
