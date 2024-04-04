@@ -52,11 +52,14 @@ Please note that `csvkit` is a Python library, so it's installed using `pip`, th
 To run this project, follow these steps:
 
 1. Make sure you have the necessary dependencies installed. You can check the `README.md` file for a list of dependencies and installation instructions.
-2. Open a terminal and navigate to the project directory.
-3. Run the main script using the UNIX terminal: `bash main.sh` or `./main.sh` if your terminal is in the current project directory.
-4. Provide the required data and API URL as input.
-5. Check the `.log` file in the log folder to view the result.
-6. If there are any additional steps or configurations required, refer to the `README.md` file for more information.
+2. Move your `.csv` file into the project directory.
+3. Optionally, rename the file as `sample.csv`.
+4. Update the `specs.json` file with your name and the server URL.
+5. Open a terminal and navigate to the project directory.
+6. Run the main script using the UNIX terminal: `bash main.sh` or `./main.sh` if your terminal is already in the project directory.
+7. Provide the required data and API URL as input when prompted.
+8. Check the `.log` file in the log folder to view the result of the bulk insert operation.
+9. If there are any additional steps or configurations required, refer to the `README.md` file for more information.
 
 ## License
 This project is licensed under the [MIT License](https://opensource.org/licenses/MIT). You can find the full license documentation in the [LICENSE](./LICENSE) file.
