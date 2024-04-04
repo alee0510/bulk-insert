@@ -31,7 +31,7 @@ readarray -t header_array < <(head -n 1 "$data" | tr ',' '\n')
 
 # Loop through each line (starting from the second line) and process it
 tail -n +2 "$data" | while IFS=, read -r fields || [[ -n "$fields" ]]; do
-    echo "Processing line: $fields"
+    # echo "Processing line: $fields"
     # Create JSON data using header as key and fields as value
     # if value is empty, then it will be empty string
     json="{"
