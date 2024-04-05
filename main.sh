@@ -11,6 +11,12 @@ else
     exit 1
 fi
 
+# check if the data file is exist
+if [ ! -f "$data" ]; then
+    echo "Data file not found"
+    exit 1
+fi
+
 # clean the file and log if it's exist
 if [ -f payload.txt ]; then
     rm payload.txt
