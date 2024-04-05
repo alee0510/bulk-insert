@@ -4,7 +4,7 @@
 # read the specs file to initialize the data and server variables
 specs=$(cat specs.json)
 if [ -f specs.json ]; then
-    data=$(echo "$specs" | jq -r '.data')
+    filename=$(echo "$specs" | jq -r '.data')
     server=$(echo "$specs" | jq -r '.server')
 else
     echo "No specs file found"
@@ -12,10 +12,13 @@ else
 fi
 
 # check if the data file is exist
-if [ ! -f "$data" ]; then
+if [ ! -f "$filename" ]; then
     echo "Data file not found"
     exit 1
 fi
+
+# read the data file
+data=$(cat "$filename")
 
 # clean the file and log if it's exist
 if [ -f payload.txt ]; then
@@ -77,5 +80,5 @@ if [ -s payload.txt ]; then
         echo "$(date +'%d-%m-%Y-%H:%M:%S') - status: $(echo "$status_code" | jq -r '.statusCode') - payload: '$line'" >> log/"$(date +"%Y%m%d-%H:%M:%S")".log
     done <<< "$payload"
 else
-    echo "No data found"
+    echo "File payload.txt is not exist"
 fi
