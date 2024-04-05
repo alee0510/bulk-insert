@@ -69,9 +69,7 @@ if [ -s payload.txt ]; then
         response=$(curl -i -X POST -H "Content-Type: application/json" -d "$line" "$server")
         status_code=$(echo "$response" | grep HTTP | awk '{print $2}')
         # echo "Status Code: $status_code"
-
-        # log response status code to the console
-        # echo "Status Code: $(echo "$response" | jq -r '.statusCode')"
+        # echo "Response: $response"
 
         # log the response into a file in log folder with current date, status code, & payload
         echo "$(date +'%d-%m-%Y-%H:%M:%S') - status: $(echo "$status_code" | jq -r '.statusCode') - payload: '$line'" >> log/"$(date +"%Y%m%d-%H:%M:%S")".log
