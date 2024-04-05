@@ -4,7 +4,7 @@
 # read the specs file to initialize the data and server variables
 specs=$(cat specs.json)
 if [ -f specs.json ]; then
-    filename=$(echo "$specs" | jq -r '.data')
+    data=$(echo "$specs" | jq -r '.data')
     server=$(echo "$specs" | jq -r '.server')
 else
     echo "No specs file found"
@@ -12,13 +12,10 @@ else
 fi
 
 # check if the data file is exist
-if [ ! -f "$filename" ]; then
+if [ ! -f "$data" ]; then
     echo "Data file not found"
     exit 1
 fi
-
-# read the data file
-data=$(cat "$filename")
 
 # clean the file and log if it's exist
 if [ -f payload.txt ]; then
