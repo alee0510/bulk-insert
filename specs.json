@@ -1,4 +1,5 @@
 {
     "data": "sample.csv",
-    "server": "https://api.sample.com/"
+    "server": "https://api.sample.com/",
+    "method" : "POST"
 }

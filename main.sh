@@ -6,6 +6,7 @@ specs=$(cat specs.json)
 if [ -f specs.json ]; then
     data=$(echo "$specs" | jq -r '.data')
     server=$(echo "$specs" | jq -r '.server')
+    method=$(echo "$specs" | jq -r '.method')
 else
     echo "No specs file found"
     exit 1
@@ -66,13 +67,13 @@ if [ -s payload.txt ]; then
         echo "Sending data to the server: $line"
 
         # send the data to the server and log the response and its http status code
-        response=$(curl -i -X POST -H "Content-Type: application/json" -d "$line" "$server")
+        response=$(curl -i -X "$method" -H "Content-Type: application/json" -d "$line" "$server")
         status_code=$(echo "$response" | grep HTTP | awk '{print $2}')
         # echo "Status Code: $status_code"
         # echo "Response: $response"
 
         # log the response into a file in log folder with current date, status code, & payload
-        echo "$(date +'%d-%m-%Y-%H:%M:%S') - status: $(echo "$status_code" | jq -r '.statusCode') - payload: '$line'" >> log/"$(date +"%Y%m%d-%H:%M:%S")".log
+        echo "$(date +'%d-%m-%Y-%H:%M:%S') - status: $(echo "$status_code" | jq -r '.statusCode') - payload: '$line'" >> log/"$(date +"%Y%m%d-%H:%M")".log
     done <<< "$payload"
 else
     echo "File payload.txt is not exist"
