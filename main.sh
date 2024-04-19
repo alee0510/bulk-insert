@@ -64,16 +64,15 @@ payload=$(cat payload.txt)
 if [ -s payload.txt ]; then
     # loop through the data and send it to the server
     while IFS= read -r line; do
-        echo "Sending data to the server: $line"
-
         # send the data to the server and log the response and its http status code
+        echo "Sending data to the server: $line"
         response=$(curl -i -X "$method" -H "Content-Type: application/json" -d "$line" "$server")
         status_code=$(echo "$response" | grep HTTP | awk '{print $2}')
         # echo "Status Code: $status_code"
         # echo "Response: $response"
 
         # log the response into a file in log folder with current date, status code, & payload
-        echo "$(date +'%d-%m-%Y-%H:%M:%S') - status: $(echo "$status_code" | jq -r '.statusCode') - payload: '$line'" >> log/"$(date +"%Y%m%d-%H:%M")".log
+        echo "$(date +'%d-%m-%Y-%H:%M:%S') - status: $status_code - payload: '$line'" >> log/"$(date +"%Y%m%d-%H:%M")".log
     done <<< "$payload"
 else
     echo "File payload.txt is not exist"
